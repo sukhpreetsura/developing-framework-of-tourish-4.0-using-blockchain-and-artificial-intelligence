@@ -1,0 +1,39 @@
+# AI-Based Tourist Recommendation System
+
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+
+# Sample tourist data
+data = {
+    'Age': [20, 25, 30, 35, 40],
+    'Budget': [10000, 15000, 20000, 25000, 30000],
+    'Interest': ['Adventure', 'Nature', 'Religious', 'Adventure', 'Nature'],
+    'Place': ['Manali', 'Shimla', 'Amritsar', 'Leh', 'Kerala']
+}
+
+df = pd.DataFrame(data)
+
+# Convert text to numbers
+df['Interest'] = df['Interest'].map({
+    'Adventure': 0,
+    'Nature': 1,
+    'Religious': 2
+})
+
+# Features and target
+X = df[['Age', 'Budget', 'Interest']]
+y = df['Place']
+
+# Train model
+model = DecisionTreeClassifier()
+model.fit(X, y)
+
+# User input
+age = 28
+budget = 18000
+interest = 0  # Adventure
+
+# Prediction
+prediction = model.predict([[age, budget, interest]])
+
+print("Recommended Tourist Place:", prediction[0])
